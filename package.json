@@ -19,6 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -f ./ormconfig.ts",
     "db:migrate": "yarn typeorm migration:generate -n",
     "db:sync": "yarn typeorm migration:run",
     "db:revert": "yarn typeorm migration:revert"
