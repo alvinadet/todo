@@ -1,17 +1,18 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TodoEntity } from './todo.entity';
-import { TodoCreateDto, TodoDto } from './todo.interface';
+import { TodoCreateDto, TodoDto, TodoUpdateDto } from './todo.interface';
 import { TodoMapper } from './todo.mapper';
 
 @Injectable()
 export class TodoService {
   constructor(
-    @Inject('TODO_REPOSITORY')
-    private todoRepository: Repository<TodoEntity>,
+    @InjectRepository(TodoEntity)
+    private readonly todoRepository: Repository<TodoEntity>,
   ) {}
 
-  async findAll(): Promise<TodoDto[]> {
+  async list(): Promise<TodoDto[]> {
     const res = await this.todoRepository.find();
     return res.map((e) => TodoMapper.mapEntityToDto(e));
   }
@@ -30,5 +31,15 @@ export class TodoService {
     const res = await this.todoRepository.save(createdData);
 
     return TodoMapper.mapEntityToDto(res);
+  }
+
+  async update(data: TodoUpdateDto): Promise<TodoDto> {
+    const res = await this.todoRepository.save(TodoMapper.mapDtoToEntity(data));
+    return TodoMapper.mapEntityToDto(res);
+  }
+
+  async delete(id: string): Promise<string> {
+    await this.todoRepository.delete({ id });
+    return id;
   }
 }

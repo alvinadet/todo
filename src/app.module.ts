@@ -1,21 +1,25 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DatabaseModule } from './ioc/database.module';
+import { databaseConfig } from './config/database.config';
 import { TodoModule } from './todo/todo.module';
-import { TodoService } from './todo/todo.service';
 import { UserModule } from './user/user.module';
-import { UserService } from './user/user.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: () => databaseConfig,
+      inject: [ConfigService],
+    }),
+
     UserModule,
-    DatabaseModule,
     TodoModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UserService, TodoService],
+  providers: [AppService],
 })
 export class AppModule {}

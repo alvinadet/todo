@@ -1,6 +1,6 @@
 export interface TodoDto {
   id: string;
-  todo: string;
+  name: string;
 }
 
 export interface TodoUpdateDto extends TodoDto {}

@@ -5,14 +5,14 @@ export class TodoMapper {
   static mapEntityToDto(e: TodoEntity): TodoDto {
     return {
       id: e.id,
-      todo: e.name,
+      name: e.name,
     };
   }
 
   static mapDtoToEntity(d: Partial<TodoUpdateDto>): TodoEntity {
     return {
       id: d.id,
-      name: d.todo,
+      name: d.name,
     };
   }
 }
