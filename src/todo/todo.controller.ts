@@ -15,7 +15,7 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Get()
-  async list(): Promise<TodoDto[]> {
+  async index(): Promise<TodoDto[]> {
     return this.todoService.list();
   }
 

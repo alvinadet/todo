@@ -1,11 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Request } from '@nestjs/common';
+import { UserDto } from './user.inteface';
 import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
   @Get()
-  get(): string {
-    return this.userService.get();
+  async get(@Request() req): Promise<UserDto[]> {
+    return this.userService.find(req);
   }
 }
