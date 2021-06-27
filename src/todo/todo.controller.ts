@@ -19,9 +19,9 @@ export class TodoController {
     return this.todoService.list();
   }
 
-  @Get(':id')
+  @Get('/:id')
   async get(@Param('id') id: string): Promise<TodoUpdateDto> {
-    return this.todoService.get(id);
+    return await this.todoService.get(id);
   }
 
   @Post()
@@ -34,7 +34,7 @@ export class TodoController {
     return this.todoService.update(data);
   }
 
-  @Delete(':id')
+  @Delete('/:id')
   async delete(@Param('id') id: string): Promise<string> {
     return this.todoService.delete(id);
   }

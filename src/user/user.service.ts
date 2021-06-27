@@ -5,8 +5,6 @@ import { UserEntity } from './user.entity';
 import { UserCreateDto, UserDto } from './user.inteface';
 import { UserMapper } from './user.mapper';
 
-const { PORT } = process.env;
-
 @Injectable()
 export class UserService {
   constructor(
@@ -15,7 +13,6 @@ export class UserService {
   ) {}
 
   get(): string {
-    console.log(PORT);
     return 'Hello ini user get service';
   }
   async create(data: UserCreateDto): Promise<UserDto> {

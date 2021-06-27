@@ -13,4 +13,6 @@ export const databaseConfig: TypeOrmModuleOptions = {
   synchronize: false,
   migrationsTableName: 'migration',
   migrations: [__dirname + 'migrations/*.ts'],
+  logging: ['error'],
+  logger: 'file',
 };
