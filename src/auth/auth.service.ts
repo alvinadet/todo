@@ -1,14 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
-import * as bcrypt from 'bcrypt';
-import { AuthMapper } from './auth.mapper';
 import { JwtService } from '@nestjs/jwt';
-import {
-  AuthDto,
-  LoginDto,
-  RegisterDto,
-  RegisterResultDto,
-} from './auth.interface';
+import * as bcrypt from 'bcrypt';
+import { UserService } from 'src/user/user.service';
+import { LoginDto, RegisterDto, RegisterResultDto } from './auth.interface';
+import { AuthMapper } from './auth.mapper';
 
 @Injectable()
 export class AuthService {
@@ -42,7 +37,6 @@ export class AuthService {
 
   async login(user: LoginDto) {
     const res = await this.validateUser(user.username, user.password);
-
     if (res?.username) {
       return {
         token: this.jwtService.sign({ id: res.id }),
@@ -81,5 +75,12 @@ export class AuthService {
         message: 'Error when register user!',
       };
     }
+  }
+
+  async validateToken(token: string) {
+    console.log(token);
+    const user = await this.jwtService.verify(token);
+    console.log(user);
+    return true;
   }
 }

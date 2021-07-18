@@ -24,3 +24,9 @@ export interface RegisterResultDto {
   data?: AuthDto;
   message?: string;
 }
+
+export interface JwtPayload {
+  id: string;
+  iat: number;
+  exp: number;
+}
