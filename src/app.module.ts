@@ -3,8 +3,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { databaseConfig } from './config/database.config';
 import { ContextModule } from './context/context.module';
+import { BaseModelSubscriber } from './ioc/base-model.subscriber';
+import { DatabaseModule } from './ioc/database.module';
+import { DbConnectionManager } from './ioc/db-connection-manager';
 import { TodoModule } from './todo/todo.module';
 import { UserModule } from './user/user.module';
 
@@ -12,8 +14,12 @@ import { UserModule } from './user/user.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: () => databaseConfig,
+      imports: [ConfigModule, BaseModelSubscriber],
+      useFactory: () => {
+        return {
+          ...DbConnectionManager.databaseConfig(),
+        };
+      },
       inject: [ConfigService],
     }),
 
@@ -21,6 +27,7 @@ import { UserModule } from './user/user.module';
     TodoModule,
     AuthModule,
     ContextModule,
+    DatabaseModule,
   ],
   providers: [AppService],
   exports: [ContextModule],

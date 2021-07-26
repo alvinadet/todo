@@ -9,7 +9,7 @@ export class TodoMapper {
     };
   }
 
-  static mapDtoToEntity(d: Partial<TodoUpdateDto>): TodoEntity {
+  static mapDtoToEntity(d: Partial<TodoUpdateDto>): Partial<TodoEntity> {
     return {
       id: d.id,
       name: d.name,

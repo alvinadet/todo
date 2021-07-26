@@ -6,10 +6,13 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt.guard';
 import { TodoCreateDto, TodoDto, TodoUpdateDto } from './todo.interface';
 import { TodoService } from './todo.service';
 
+@UseGuards(JwtAuthGuard)
 @Controller('todo')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
