@@ -8,7 +8,7 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt.guard';
+import { JwtAuthGuard } from '../auth/jwt.guard';
 import { TodoCreateDto, TodoDto, TodoUpdateDto } from './todo.interface';
 import { TodoService } from './todo.service';
 

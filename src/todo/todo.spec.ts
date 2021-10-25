@@ -1,18 +1,36 @@
+import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { AppModule } from '../app.module';
 import { TodoService } from './todo.service';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config();
 
 describe('Todo', () => {
   let provider: TodoService;
+  let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [TodoService],
+      imports: [AppModule],
     }).compile();
 
-    provider = module.get(TodoService);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+    app = module.createNestApplication();
+    await app.init();
+
+    // provider = await app.resolve(TodoService);
   });
 
-  it('should be defined', () => {
+  afterAll(async (done) => {
+    await app.close();
+    done();
+  });
+
+  it('should be defined', (done) => {
+    console.log(provider);
     expect(provider).toBeDefined();
+
+    done();
   });
 });
