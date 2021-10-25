@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/typeorm';
-import { ContextProvider } from 'src/context/context.provider';
 import {
   Connection,
   EntitySubscriberInterface,
@@ -9,6 +8,7 @@ import {
   RemoveEvent,
   UpdateEvent,
 } from 'typeorm';
+import { ContextProvider } from '../context/context.provider';
 
 @Injectable()
 @EventSubscriber()
