@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
-import { BaseModelSubscriber } from 'src/ioc/base-model.subscriber';
-import { DatabaseModule } from 'src/ioc/database.module';
+import { BaseModelSubscriber } from '../ioc/base-model.subscriber';
+import { DatabaseModule } from '../ioc/database.module';
 import { ContextProvider } from './context.provider';
 
 @Global()
